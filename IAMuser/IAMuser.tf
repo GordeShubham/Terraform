@@ -18,7 +18,7 @@ resource "aws_iam_policy" "policy" {
     Version = "2012-10-17",
     Statement = [
       {
-        Action   = ["AdministratorAccess-Amplify"],
+        Action   = ["iam:AdministratorAccess"],
         Effect   = "Allow",
         Resource = "*"
       }
