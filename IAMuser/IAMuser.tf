@@ -11,20 +11,19 @@ resource "aws_iam_user" "my_user"{
 }
 
 resource "aws_iam_policy" "policy" {
-  name        = "${random_pet.pet_name.id}-policy"
-  description = "My test policy"
-
-  policy = <<EOT
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Action": ["AdministratorAccess-Amplify"],
-      "Effect": "Allow",
-      "Resource": "*"
-}
-]
-}
+  name        = "my-policy"
+  description = "My IAM policy"
+  
+  policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
+      {
+        Action   = ["AdministratorAccess-Amplify"],
+        Effect   = "Allow",
+        Resource = "*"
+      }
+    ]
+  })
 }
 
 resource "aws_iam_user_policy_attachment" "test-attach" {
