@@ -2,7 +2,7 @@ provider "aws" {
     region = "eu-west-3"
 }
 resource "aws_iam_user" "my_user"{
-    name = "shubham"
+    name = "demo"
     path = "/"
 
     tags = {
