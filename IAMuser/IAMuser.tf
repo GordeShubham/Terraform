@@ -19,8 +19,8 @@ output "password" {
   
 }
  
-resource "aws_s3_bucket_ownership_controls" "demo_bucket" {
-  bucket = aws_s3_bucket.demo_bucket.id
+resource "aws_s3_bucket_ownership_controls" "demo-terraform-bucket-123" {
+  bucket = aws_s3_bucket.demo-terraform-bucket-123.id
   rule {
     object_ownership = "BucketOwnerPreferred"
 
