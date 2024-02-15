@@ -1,32 +1,25 @@
 provider "aws" {
-    region = "eu-west-3"
-}
-resource "aws_iam_user" "my_user"{
-    name = "demo"
-    path = "/"
-
-    tags = {
-    tag-key = "env-dev"
-  }
+ region = "eu-west-3"
 }
 
-resource "aws_iam_policy" "policy" {
-  name        = "my-policy"
-  description = "My IAM policy"
+resource "aws_iam_user" "demo_user" {
+ name = "demo"
+}
+
+resource "aws_iam_user_login_profile" "demo_user_login_profile" {
+ user    = aws_iam_user.demo_user.name
+} 
+
+output "password" {
+ value = aws_iam_user_login_profile.demo_user_login_profile.password
+} 
+ 
+ resource "aws_s3_bucket" "demo_bucket" {
+  bucket = "demo-terraform-bucket-123"
   
-  policy = jsonencode({
-    Version = "2012-10-17",
-    Statement = [
-      {
-        Action   = ["iam:AdministratorAccess"],
-        Effect   = "Allow",
-        Resource = "*"
-      }
-    ]
-  })
 }
-
-resource "aws_iam_user_policy_attachment" "test-attach" {
-  user       = aws_iam_user.my_user.name
-  policy_arn = aws_iam_policy.policy.arn
-}
+ 
+resource "aws_s3_bucket_ownership_controls" "demo_bucket" {
+  bucket = aws_s3_bucket.demo_bucket.id
+  rule {
+    object_ownership = "BucketOwnerPreferred"
